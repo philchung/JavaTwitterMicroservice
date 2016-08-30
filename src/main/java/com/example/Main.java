@@ -1,3 +1,20 @@
+/*
+ * File: Main.java
+ *
+ * Copyright (c) 2015, 2016 Oracle and/or its affiliates.
+ *
+ * You may not use this file except in compliance with the Universal Permissive
+ * License (UPL), Version 1.0 (the "License.")
+ *
+ * You may obtain a copy of the License at https://opensource.org/licenses/UPL.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package com.example;
 
 import java.io.File;
@@ -22,7 +39,9 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 
 /**
- * Main class.
+ * Main class - Starts Jersey JAX-RS in a Grizzly HTTP server
+ * 
+ * @author Phil Chung
  *
  */
 public class Main {
@@ -31,7 +50,7 @@ public class Main {
 
     /**
      * Starts Grizzly HTTP server exposing JAX-RS resources defined in this application.
-     * @return Grizzly HTTP server.
+     * @return Grizzly HTTP server
      */
     public static HttpServer startServer() throws UnknownHostException {
     	// Base URI the Grizzly HTTP server will listen on
@@ -57,6 +76,7 @@ public class Main {
         final HttpServer server = startServer();
         
         server.getServerConfiguration().addHttpHandler(new HttpHandler() {
+/*            This commented code would be written prior to Java 8 java.time.* API    */	
 //            final SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
 //            
 //            @Override

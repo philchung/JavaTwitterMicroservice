@@ -1,3 +1,20 @@
+/*
+ * File: SampleStreamExample.java
+ *
+ * Copyright (c) 2015, 2016 Oracle and/or its affiliates.
+ *
+ * You may not use this file except in compliance with the Universal Permissive
+ * License (UPL), Version 1.0 (the "License.")
+ *
+ * You may obtain a copy of the License at https://opensource.org/licenses/UPL.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package com.example;
 
 import static java.util.Objects.requireNonNull;
@@ -26,6 +43,12 @@ import org.glassfish.jersey.client.oauth1.ConsumerCredentials;
 import org.glassfish.jersey.client.oauth1.OAuth1ClientSupport;
 import org.glassfish.jersey.server.ChunkedOutput;
 
+/*
+ * SampleStreamExample - creates the connection to Twitter 
+ * via OAuth authorization and returns a {@link ChunkedOutput} of a JSON array of global tweets
+ * 
+ * @author Phil Chung
+ */
 public class SampleStreamExample {
 
 	private static final String ENDPOINT = "https://stream.twitter.com/1.1/statuses/sample.json";
@@ -37,6 +60,10 @@ public class SampleStreamExample {
 	private SampleStreamExample example;
 	private final ChunkedOutput<String> output;
 
+	/*
+	 * SampleStreamExample - Initializes resources, reads twitter-auth.json for OAuth tokens
+	 * using Java 8's Nashorn Javascript engine and creates a {@link java.util.Map} for the tokens
+	 */
 	public SampleStreamExample() {
 		//System.setProperty("https.proxyHost", "adc-proxy.oracle.com");
 		//System.setProperty("https.proxyPort", "80");
@@ -62,6 +89,10 @@ public class SampleStreamExample {
 		}
 	}
 
+	/*
+	 * runTwitterStream - Jersey OAuth client to Twitter authorizes access, receives response from
+	 * Twitter endpoint to get a sample of their global stream of tweets 
+	 */
 	public void runTwitterStream(final ChunkedOutput<String> output, final Integer i) throws IOException {
 		final ConsumerCredentials consumerCredentials = new ConsumerCredentials(consumerKey, consumerSecret);
 		final AccessToken storedToken = new AccessToken(token, tokenSecret);
@@ -114,6 +145,9 @@ public class SampleStreamExample {
 		System.out.printf("The client read %d messages!\n", i);
 	}
 
+	/*
+	 * main - class testing method
+	 */
 	public static void main(String[] args) throws IOException {
 		SampleStreamExample example = new SampleStreamExample();
 		example.runTwitterStream(example.output, 100);

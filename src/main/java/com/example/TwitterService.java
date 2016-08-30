@@ -1,3 +1,20 @@
+/*
+ * File: TwitterService.java
+ *
+ * Copyright (c) 2015, 2016 Oracle and/or its affiliates.
+ *
+ * You may not use this file except in compliance with the Universal Permissive
+ * License (UPL), Version 1.0 (the "License.")
+ *
+ * You may obtain a copy of the License at https://opensource.org/licenses/UPL.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied.
+ *
+ * See the License for the specific language governing permissions and limitations
+ * under the License.
+ */
 package com.example;
 
 import java.io.IOException;
@@ -17,7 +34,11 @@ import javax.ws.rs.core.StreamingOutput;
 import org.glassfish.jersey.server.ChunkedOutput;
 
 /**
- * Root resource (exposed at "tweets" path)
+ * TwitterService - enable CORS header and starts an async thread task to get the tweets
+ * This returns tweets to the client as soon as they are retrieved by the worker thread
+ * without having to wait for the entire result set before return to the client.
+ * 
+ * @author Phil Chung
  */
 @Path("tweets")
 public class TwitterService {
@@ -69,6 +90,10 @@ public class TwitterService {
 		}
 	}
 	
+	/*
+	 * runTask uses a simple lambda expression to start the thread to get tweets
+	 * 
+	 */
 	private void runTask(ChunkedOutput<String> output, final Integer i) {
         new Thread(() -> {
             try {
